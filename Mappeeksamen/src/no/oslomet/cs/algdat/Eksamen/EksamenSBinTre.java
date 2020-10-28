@@ -174,7 +174,7 @@ public class EksamenSBinTre<T> {
 
 class main{
     public static void main(String[] args){
-        
+
 
     }
 }
