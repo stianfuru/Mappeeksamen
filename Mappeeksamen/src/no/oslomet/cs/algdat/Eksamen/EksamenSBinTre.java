@@ -133,3 +133,9 @@ public class EksamenSBinTre<T> {
 
 
 } // ObligSBinTre
+
+class main{
+    public static void main(String[] args){
+
+    }
+}
