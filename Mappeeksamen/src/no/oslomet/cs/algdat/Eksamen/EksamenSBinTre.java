@@ -112,7 +112,29 @@ public class EksamenSBinTre<T> {
     }
 
     public int antall(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (verdi == null) return 0;
+
+        Node<T> p = rot;
+        int cmp = 0;
+        int teller = 0;
+
+
+        while (p != null){
+            cmp = comp.compare(verdi, p.verdi);
+
+            if(cmp < 0){
+                p = p.venstre;
+            }
+            else if(p.verdi == verdi){
+                teller++;
+                p = p.høyre;
+            }
+            else{
+                p = p.høyre;
+            }
+        }
+
+        return teller;
     }
 
     public void nullstill() {
@@ -152,10 +174,7 @@ public class EksamenSBinTre<T> {
 
 class main{
     public static void main(String[] args){
-        Integer[] a = {4,7,2,9,5,10,8,1,3,6};
-        EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
-        for (int verdi : a) tre.leggInn(verdi);
-        System.out.println(tre.antall());
+        
 
     }
 }
