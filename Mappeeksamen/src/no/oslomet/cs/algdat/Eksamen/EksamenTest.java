@@ -316,7 +316,7 @@ public class EksamenTest {
             System.out.println("Oppgave 6l: Feil i fjern(T)!");
         }
 
-        tre.nullstill();
+       /* tre.nullstill();
 
         if (tre.antall() != 0) {
             antallFeil++;
@@ -391,9 +391,9 @@ public class EksamenTest {
             System.out.println("Oppgave 6v: Har du kodet nullstill() ved kun");
             System.out.println("nullstille hode og antall? Alle nodeverdier og");
             System.out.println("pekere i treet skal nulles!");
-        }
+        }*/
         assertEquals(antallFeil, 0);
-    }  // slutt på Oppgave 5
+    }  // slutt på Oppgave 6
 
 
 } // Oblig3Test
