@@ -196,7 +196,14 @@ public class EksamenSBinTre<T> {
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> p = førstePostorden(rot);
+        oppgave.utførOppgave(p.verdi);
+
+        while(nestePostorden(p) != null){
+            p = nestePostorden(p);
+            oppgave.utførOppgave(p.verdi);
+        }
+
     }
 
     public void postordenRecursive(Oppgave<? super T> oppgave) {
@@ -225,5 +232,7 @@ class main{
         for (int verdi : a) tre.leggInn(verdi);
 
         System.out.println(tre.toStringPostOrder());
+
+
     }
 }
