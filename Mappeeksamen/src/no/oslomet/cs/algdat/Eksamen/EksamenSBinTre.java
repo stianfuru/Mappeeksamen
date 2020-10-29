@@ -214,16 +214,35 @@ public class EksamenSBinTre<T> {
         if(p == null){
             return;
         }
-
         postordenRecursive(p.venstre,oppgave);
         postordenRecursive(p.høyre,oppgave);
 
         oppgave.utførOppgave(p.verdi);
-
     }
 
     public ArrayList<T> serialize() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        ArrayList<T> serie = new ArrayList<>();
+        ArrayDeque<Node> kø = new ArrayDeque<>();
+
+        kø.addLast(rot);
+        serie.add(rot.verdi);
+
+        while(!kø.isEmpty()){
+
+            Node<T> current = kø.removeFirst();
+
+            if (current.venstre != null){
+                kø.addLast(current.venstre);
+                serie.add(current.venstre.verdi);
+            }
+            if(current.høyre != null){
+                kø.addLast(current.høyre);
+                serie.add(current.høyre.verdi);
+            }
+
+        }
+
+        return serie;
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
