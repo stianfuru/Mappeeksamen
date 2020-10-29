@@ -94,9 +94,16 @@ public class EksamenSBinTre<T> {
 
         p = new Node(verdi,q);
 
-        if (q == null) rot = p;
-        else if (cmp < 0) q.venstre = p;
-        else q.høyre = p;
+        if (q == null){
+            rot = p;
+            p.forelder = null;
+        }
+        else if (cmp < 0){
+            q.venstre = p;
+        }
+        else{
+            q.høyre = p;
+        }
 
         antall++;
         return true;
@@ -141,6 +148,10 @@ public class EksamenSBinTre<T> {
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
+        while (p.forelder != null){
+            p = p.forelder;
+        }
+
         while (true) {
             if (p.venstre != null){
                 p = p.venstre;
@@ -152,13 +163,12 @@ public class EksamenSBinTre<T> {
                 return p;
             }
         }
-
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        while(true){
+       while(true){
             if(p.forelder == null){
-                return p;
+                return null;
             }
             else if(p == p.forelder.høyre){
                 p = p.forelder;
@@ -171,6 +181,14 @@ public class EksamenSBinTre<T> {
                 }
                 else{
                     p = p.forelder.høyre;
+                    while(p.høyre != null || p.venstre != null){
+                        if(p.venstre == null){
+                            p = p.høyre;
+                        }
+                        else{
+                            p = p.venstre;
+                        }
+                    }
                     return p;
                 }
             }
@@ -202,7 +220,7 @@ public class EksamenSBinTre<T> {
 
 class main{
     public static void main(String[] args){
-        Integer[] a = {2,3,4,5,6,7,8};
+        Integer[] a = {5,3,7,2,4,6,8};
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
 
