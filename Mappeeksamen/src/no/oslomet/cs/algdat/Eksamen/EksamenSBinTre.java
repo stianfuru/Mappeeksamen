@@ -1,6 +1,5 @@
 package no.oslomet.cs.algdat.Eksamen;
 
-
 import java.util.*;
 
 public class EksamenSBinTre<T> {
@@ -142,7 +141,13 @@ public class EksamenSBinTre<T> {
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        while (true) {
+            if (p.venstre != null) p = p.venstre;
+            else if (p.høyre != null) p = p.høyre;
+            else return p;
+        }
+
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
@@ -174,14 +179,10 @@ public class EksamenSBinTre<T> {
 
 class main{
     public static void main(String[] args){
-        Integer[] a = {4,7,2,9,4,10,8,7,4,6};
+        Integer[] a = {2,3,4,5,6,7,8};
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
-        System.out.println(tre.antall()); // Utskrift: 10
-        System.out.println(tre.antall(5)); // Utskrift: 0
-        System.out.println(tre.antall(4)); // Utskrift: 3
-        System.out.println(tre.antall(7)); // Utskrift: 2
-        System.out.println(tre.antall(10)); // Utskrift: 1
+
 
     }
 }
