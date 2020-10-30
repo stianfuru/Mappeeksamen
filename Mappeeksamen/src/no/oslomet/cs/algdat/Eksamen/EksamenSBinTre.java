@@ -179,7 +179,13 @@ public class EksamenSBinTre<T> {
     }
 
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        int temp = antall(verdi);
+
+        for(int i = 1; i <= temp; i ++){
+            fjern(verdi);
+            antall--;
+        }
+        return temp;
     }
 
     public int antall(T verdi) {
@@ -326,13 +332,15 @@ class main{
         System.out.println(tre.toStringPostOrder());*/
 
 
-        int[] b = {4,3,2,6,7,5,8,10,41};
+        int[] b = {5,2,6,6,6,2,4,6,8};
         EksamenSBinTre<Integer> tre2 = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : b) tre2.leggInn(verdi);
 
         tre2.fjern(10);
         System.out.println(tre2.antall()); // 7
         System.out.println(tre2.toStringPostOrder());
+
+        System.out.println(tre2.fjernAlle(6) + " " + tre2.toStringPostOrder());
 
     }
 }
