@@ -85,23 +85,20 @@ public class EksamenSBinTre<T> {
         Node<T> p = rot, q = null;
         int cmp = 0;
 
-        while (p != null)
-        {
+        while (p != null) {
             q = p;
-            cmp = comp.compare(verdi,p.verdi);
+            cmp = comp.compare(verdi, p.verdi);
             p = cmp < 0 ? p.venstre : p.høyre;
         }
 
-        p = new Node(verdi,q);
+        p = new Node(verdi, q);
 
-        if (q == null){
+        if (q == null) {
             rot = p;
             p.forelder = null;
-        }
-        else if (cmp < 0){
+        } else if (cmp < 0) {
             q.venstre = p;
-        }
-        else{
+        } else {
             q.høyre = p;
         }
 
@@ -114,58 +111,48 @@ public class EksamenSBinTre<T> {
 
         Node<T> p = rot, q = null;
 
-        while (p != null)
-        {
-            int cmp = comp.compare(verdi,p.verdi);
+        while (p != null) {
+            int cmp = comp.compare(verdi, p.verdi);
             if (cmp < 0) {
                 q = p;
                 p = p.venstre;
-            }
-            else if (cmp > 0) {
+            } else if (cmp > 0) {
                 q = p;
                 p = p.høyre;
-            }
-            else break;
+            } else break;
         }
         if (p == null) return false;
 
-        if (p.venstre == null || p.høyre == null)
-        {
+        if (p.venstre == null || p.høyre == null) {
             Node<T> b = p.venstre != null ? p.venstre : p.høyre;
 
-            if (p == rot){
+            if (p == rot) {
                 rot = b;
-            }
-            else if (p == q.venstre){
+            } else if (p == q.venstre) {
                 q.venstre = b;
-            }
-            else {
+            } else {
                 q.høyre = b;
             }
-            if(b != null){
+            if (b != null) {
                 b.forelder = q;
             }
-        }
-        else
-        {
+        } else {
             Node<T> s = p, r = p.høyre;
-            while (r.venstre != null)
-            {
+            while (r.venstre != null) {
                 s = r;
                 r = r.venstre;
             }
 
             p.verdi = r.verdi;
 
-            if (s != p){
+            if (s != p) {
                 s.venstre = r.høyre;
-                if(s.venstre != null){
+                if (s.venstre != null) {
                     s.venstre.forelder = s;
                 }
-            }
-            else{
+            } else {
                 s.høyre = r.høyre;
-                if(s.høyre != null){
+                if (s.høyre != null) {
                     s.høyre.forelder = s;
                 }
             }
@@ -177,7 +164,7 @@ public class EksamenSBinTre<T> {
     public int fjernAlle(T verdi) {
         int temp = antall(verdi);
 
-        for(int i = 1; i <= temp; i ++){
+        for (int i = 1; i <= temp; i++) {
             fjern(verdi);
         }
         return temp;
@@ -191,17 +178,15 @@ public class EksamenSBinTre<T> {
         int teller = 0;
 
 
-        while (p != null){
+        while (p != null) {
             cmp = comp.compare(verdi, p.verdi);
 
-            if(cmp < 0){
+            if (cmp < 0) {
                 p = p.venstre;
-            }
-            else if(p.verdi == verdi){
+            } else if (p.verdi == verdi) {
                 teller++;
                 p = p.høyre;
-            }
-            else{
+            } else {
                 p = p.høyre;
             }
         }
@@ -211,23 +196,23 @@ public class EksamenSBinTre<T> {
     public void nullstill() {
         ArrayDeque<Node> kø = new ArrayDeque<>();
 
-        if(rot == null){
+        if (rot == null) {
             return;
         }
 
         kø.addLast(rot);
         rot = null;
         antall--;
-        while(!kø.isEmpty()){
+        while (!kø.isEmpty()) {
 
             Node<T> current = kø.removeFirst();
 
-            if (current.venstre != null){
+            if (current.venstre != null) {
                 kø.addLast(current.venstre);
                 current.venstre = null;
                 antall--;
             }
-            if(current.høyre != null){
+            if (current.høyre != null) {
                 kø.addLast(current.høyre);
                 current.høyre = null;
                 antall--;
@@ -236,44 +221,38 @@ public class EksamenSBinTre<T> {
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        while (p.forelder != null){
+        while (p.forelder != null) {
             p = p.forelder;
         }
 
         while (true) {
-            if (p.venstre != null){
+            if (p.venstre != null) {
                 p = p.venstre;
-            }
-            else if (p.høyre != null){
+            } else if (p.høyre != null) {
                 p = p.høyre;
-            }
-            else{
+            } else {
                 return p;
             }
         }
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-       while(true){
-            if(p.forelder == null){
+        while (true) {
+            if (p.forelder == null) {
                 return null;
-            }
-            else if(p == p.forelder.høyre){
+            } else if (p == p.forelder.høyre) {
                 p = p.forelder;
                 return p;
-            }
-            else{
-                if(p.forelder.høyre == null){
+            } else {
+                if (p.forelder.høyre == null) {
                     p = p.forelder;
                     return p;
-                }
-                else{
+                } else {
                     p = p.forelder.høyre;
-                    while(p.høyre != null || p.venstre != null){
-                        if(p.venstre == null){
+                    while (p.høyre != null || p.venstre != null) {
+                        if (p.venstre == null) {
                             p = p.høyre;
-                        }
-                        else{
+                        } else {
                             p = p.venstre;
                         }
                     }
@@ -287,7 +266,7 @@ public class EksamenSBinTre<T> {
         Node<T> p = førstePostorden(rot);
         oppgave.utførOppgave(p.verdi);
 
-        while(nestePostorden(p) != null){
+        while (nestePostorden(p) != null) {
             p = nestePostorden(p);
             oppgave.utførOppgave(p.verdi);
         }
@@ -299,11 +278,11 @@ public class EksamenSBinTre<T> {
     }
 
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
-        if(p == null){
+        if (p == null) {
             return;
         }
-        postordenRecursive(p.venstre,oppgave);
-        postordenRecursive(p.høyre,oppgave);
+        postordenRecursive(p.venstre, oppgave);
+        postordenRecursive(p.høyre, oppgave);
 
         oppgave.utførOppgave(p.verdi);
     }
@@ -315,15 +294,15 @@ public class EksamenSBinTre<T> {
         kø.addLast(rot);
         serie.add(rot.verdi);
 
-        while(!kø.isEmpty()){
+        while (!kø.isEmpty()) {
 
             Node<T> current = kø.removeFirst();
 
-            if (current.venstre != null){
+            if (current.venstre != null) {
                 kø.addLast(current.venstre);
                 serie.add(current.venstre.verdi);
             }
-            if(current.høyre != null){
+            if (current.høyre != null) {
                 kø.addLast(current.høyre);
                 serie.add(current.høyre.verdi);
             }
@@ -334,7 +313,7 @@ public class EksamenSBinTre<T> {
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
         EksamenSBinTre<K> deSerie = new EksamenSBinTre(c);
 
-        for(int i = 0; i < data.size(); i++){
+        for (int i = 0; i < data.size(); i++) {
             deSerie.leggInn(data.get(i));
         }
         return deSerie;
