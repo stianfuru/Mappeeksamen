@@ -317,6 +317,8 @@ public class EksamenSBinTre<T> {
         ArrayList<T> serie = new ArrayList<>();
         ArrayDeque<Node> kø = new ArrayDeque<>();
 
+
+
         kø.addLast(rot);
         serie.add(rot.verdi);
 
@@ -339,27 +341,19 @@ public class EksamenSBinTre<T> {
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        EksamenSBinTre<K> deSerie = new EksamenSBinTre(c);
+
+        for(int i = 0; i < data.size(); i++){
+            deSerie.leggInn(data.get(i));
+        }
+        return deSerie;
     }
 
 
-} // ObligSBinTre
+}
 
 class main{
     public static void main(String[] args){
 
-        int[] b = {4,3,5,8,6,7,6,90};
-        EksamenSBinTre<Integer> tre2 = new EksamenSBinTre<>(Comparator.naturalOrder());
-        for (int verdi : b) tre2.leggInn(verdi);
-
-        System.out.println(tre2.antall());
-
-
-
-        System.out.println(tre2.fjernAlle(6) + " " + tre2.toStringPostOrder());
-        System.out.println(tre2.antall());
-
-        tre2.nullstill();
-        System.out.println(tre2.toStringPostOrder());
     }
 }
