@@ -110,33 +110,32 @@ public class EksamenSBinTre<T> {
     }
 
     public boolean fjern(T verdi) {
-        if (verdi == null) return false;  // treet har ingen nullverdier
+        if (verdi == null) return false;
 
-        Node<T> p = rot, q = null;   // q skal være forelder til p
+        Node<T> p = rot, q = null;
 
-        while (p != null)            // leter etter verdi
+        while (p != null)
         {
-            int cmp = comp.compare(verdi,p.verdi);      // sammenligner
+            int cmp = comp.compare(verdi,p.verdi);
             if (cmp < 0) {
                 q = p;
                 p = p.venstre;
-            }      // går til venstre
+            }
 
             else if (cmp > 0) {
                 q = p;
                 p = p.høyre;
-
-            }   // går til høyre
-            else break;    // den søkte verdien ligger i p
+            }
+            else break;
         }
-        if (p == null) return false;   // finner ikke verdi
+        if (p == null) return false;
 
-        if (p.venstre == null || p.høyre == null)  // Tilfelle 1) og 2)
+        if (p.venstre == null || p.høyre == null)
         {
-            Node<T> b = p.venstre != null ? p.venstre : p.høyre;  // b for barn
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;
+
             if (p == rot){
                 rot = b;
-                rot.forelder = null;
             }
             else if (p == q.venstre){
                 q.venstre = b;
@@ -144,23 +143,38 @@ public class EksamenSBinTre<T> {
             else {
                 q.høyre = b;
             }
+            if(b != null){
+                b.forelder = q;
+            }
         }
-        else  // Tilfelle 3)
+        else
         {
-            Node<T> s = p, r = p.høyre;   // finner neste i inorden
+            Node<T> s = p, r = p.høyre;
             while (r.venstre != null)
             {
-                s = r;    // s er forelder til r
+                s = r;
                 r = r.venstre;
+
             }
 
-            p.verdi = r.verdi;   // kopierer verdien i r til p
+            p.verdi = r.verdi;
 
-            if (s != p) s.venstre = r.høyre;
-            else s.høyre = r.høyre;
+            if (s != p){
+                s.venstre = r.høyre;
+                if(s.venstre != null){
+                    s.venstre.forelder = s;
+                }
+
+            }
+            else{
+                s.høyre = r.høyre;
+                if(s.høyre != null){
+                    s.høyre.forelder = s;
+                }
+
+            }
         }
-
-        antall--;   // det er nå én node mindre i treet
+        antall--;
         return true;
     }
 
@@ -305,12 +319,20 @@ public class EksamenSBinTre<T> {
 
 class main{
     public static void main(String[] args){
-        Integer[] a = {5,3,7,2,4,6,8};
+        /*Integer[] a = {5,3,7,2,4,6,8};
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
 
-        System.out.println(tre.toStringPostOrder());
+        System.out.println(tre.toStringPostOrder());*/
 
+
+        int[] b = {4,3,2,6,7,5,8,10,41};
+        EksamenSBinTre<Integer> tre2 = new EksamenSBinTre<>(Comparator.naturalOrder());
+        for (int verdi : b) tre2.leggInn(verdi);
+
+        tre2.fjern(10);
+        System.out.println(tre2.antall()); // 7
+        System.out.println(tre2.toStringPostOrder());
 
     }
 }
