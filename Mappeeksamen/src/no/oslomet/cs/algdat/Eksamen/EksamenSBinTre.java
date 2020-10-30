@@ -183,7 +183,6 @@ public class EksamenSBinTre<T> {
 
         for(int i = 1; i <= temp; i ++){
             fjern(verdi);
-            antall--;
         }
         return temp;
     }
@@ -353,9 +352,12 @@ class main{
         EksamenSBinTre<Integer> tre2 = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : b) tre2.leggInn(verdi);
 
+        System.out.println(tre2.antall());
+
 
 
         System.out.println(tre2.fjernAlle(6) + " " + tre2.toStringPostOrder());
+        System.out.println(tre2.antall());
 
         tre2.nullstill();
         System.out.println(tre2.toStringPostOrder());
