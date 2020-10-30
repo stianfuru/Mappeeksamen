@@ -121,7 +121,6 @@ public class EksamenSBinTre<T> {
                 q = p;
                 p = p.venstre;
             }
-
             else if (cmp > 0) {
                 q = p;
                 p = p.høyre;
@@ -154,7 +153,6 @@ public class EksamenSBinTre<T> {
             {
                 s = r;
                 r = r.venstre;
-
             }
 
             p.verdi = r.verdi;
@@ -164,14 +162,12 @@ public class EksamenSBinTre<T> {
                 if(s.venstre != null){
                     s.venstre.forelder = s;
                 }
-
             }
             else{
                 s.høyre = r.høyre;
                 if(s.høyre != null){
                     s.høyre.forelder = s;
                 }
-
             }
         }
         antall--;
@@ -209,7 +205,6 @@ public class EksamenSBinTre<T> {
                 p = p.høyre;
             }
         }
-
         return teller;
     }
 
@@ -317,8 +312,6 @@ public class EksamenSBinTre<T> {
         ArrayList<T> serie = new ArrayList<>();
         ArrayDeque<Node> kø = new ArrayDeque<>();
 
-
-
         kø.addLast(rot);
         serie.add(rot.verdi);
 
@@ -334,9 +327,7 @@ public class EksamenSBinTre<T> {
                 kø.addLast(current.høyre);
                 serie.add(current.høyre.verdi);
             }
-
         }
-
         return serie;
     }
 
@@ -348,12 +339,5 @@ public class EksamenSBinTre<T> {
         }
         return deSerie;
     }
-
-
 }
 
-class main{
-    public static void main(String[] args){
-
-    }
-}
