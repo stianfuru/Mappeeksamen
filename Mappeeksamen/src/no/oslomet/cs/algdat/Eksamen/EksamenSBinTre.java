@@ -215,7 +215,30 @@ public class EksamenSBinTre<T> {
     }
 
     public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        ArrayDeque<Node> kø = new ArrayDeque<>();
+
+        if(rot == null){
+            return;
+        }
+
+        kø.addLast(rot);
+        rot = null;
+        antall--;
+        while(!kø.isEmpty()){
+
+            Node<T> current = kø.removeFirst();
+
+            if (current.venstre != null){
+                kø.addLast(current.venstre);
+                current.venstre = null;
+                antall--;
+            }
+            if(current.høyre != null){
+                kø.addLast(current.høyre);
+                current.høyre = null;
+                antall--;
+            }
+        }
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
@@ -325,22 +348,16 @@ public class EksamenSBinTre<T> {
 
 class main{
     public static void main(String[] args){
-        /*Integer[] a = {5,3,7,2,4,6,8};
-        EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
-        for (int verdi : a) tre.leggInn(verdi);
 
-        System.out.println(tre.toStringPostOrder());*/
-
-
-        int[] b = {5,2,6,6,6,2,4,6,8};
+        int[] b = {4,3,5,8,6,7,6,90};
         EksamenSBinTre<Integer> tre2 = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : b) tre2.leggInn(verdi);
 
-        tre2.fjern(10);
-        System.out.println(tre2.antall()); // 7
-        System.out.println(tre2.toStringPostOrder());
+
 
         System.out.println(tre2.fjernAlle(6) + " " + tre2.toStringPostOrder());
 
+        tre2.nullstill();
+        System.out.println(tre2.toStringPostOrder());
     }
 }
